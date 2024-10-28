@@ -1,6 +1,8 @@
+
 import java.util.Scanner;
 
 class Page {
+
     String url;
     Page prev;
     Page next;
@@ -13,15 +15,17 @@ class Page {
 }
 
 class History {
+
     private Page currentPage;
 
     // Visit a new page
     public void visitPage(String url) {
         Page newPage = new Page(url);
         if (currentPage != null) {
-            // Remove all forward pages if they exist
-            currentPage.next = null;
+            // Set the new page's previous link to the current page
             newPage.prev = currentPage;
+            // Update currentPage's next link to the new page (retaining forward pages)
+            currentPage.next = newPage;
         }
         currentPage = newPage;
         System.out.println("Visited: " + url);
@@ -55,7 +59,7 @@ class History {
         }
 
         Page firstPage = currentPage;
-        // Traverse to the first page
+        // Traverse to the first page in history
         while (firstPage.prev != null) {
             firstPage = firstPage.prev;
         }
@@ -79,6 +83,7 @@ class History {
 }
 
 public class BrowserHistoryManager {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         History browserHistory = new History();
